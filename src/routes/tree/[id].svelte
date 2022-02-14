@@ -1,7 +1,8 @@
 <script context="module">
+	import {variables} from '$lib/variables';
 	export async function load({ params, fetch }) {
 		try {
-			const url = `http://localhost:4000/trees/${params.id}`;
+			const url = `${variables.targetUrl}trees/${params.id}`;
 			const res = await fetch(url);
 			const data = await res.json();
 			/*const url2 = `http://localhost:4000/logs/${params.id}`;

@@ -9,7 +9,7 @@
 	async function loadLogs() {
 		try {
 			await timeout(2000);
-			const url = `http://localhost:4000/logs/${id}`;
+			const url = `https://cbr-node.herokuapp.com/logs/${id}`;
 			const res = await fetch(url);
 			const data = await res.json();
 			return data;

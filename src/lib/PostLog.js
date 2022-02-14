@@ -1,7 +1,7 @@
 export async function postLog(data) {
 	try {
         const postData = JSON.stringify(data)
-		const res = await fetch('http://localhost:4000/logs', {
+		const res = await fetch('https://cbr-node.herokuapp.com/logs', {
 			method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
