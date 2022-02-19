@@ -10,6 +10,10 @@
 	let hover = false;
 	let loadImg = true;
 
+	const handleLoad = () => {
+		loadImg = false;
+	}
+
 	export let tree;
 	const time = (params) => moment(params).startOf('years').fromNow().split(' ')[0];
 	const hovering = (params) => {
@@ -38,7 +42,7 @@
 			src="/longan/{tree.id.toLowerCase()}.jpg"
 			alt="Longan"
 			style="max-height: 200px; width:auto; border-radius:30px !important; filter:opacity({loadImg? 0 : 1});"
-			on:load={() => loadImg = false}
+			on:load|once={handleLoad()}
 		/>
 		<CardSubtitle class="py-1">Variant: {tree.variant}</CardSubtitle>
 		<CardSubtitle class="py-1">Status: {tree.status}</CardSubtitle>
