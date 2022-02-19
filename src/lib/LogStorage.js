@@ -6,7 +6,6 @@ export async function getLog(params) {
 	try {
 		const res = await fetch(`https://cbr-node.herokuapp.com/logs/${params}`);
         const data = await fetch.json();
-		console.log(params);
         return listLogs.push(data);
 	} catch (error) {
 		console.log('500:', error);

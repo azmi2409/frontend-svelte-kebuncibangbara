@@ -1,6 +1,6 @@
 <script>
 	import moment from 'moment';
-	export let id = 0;
+	import { treeLogs } from '$lib/stores/trees';
 	export let reload = false;
 
 	function timeout(ms) {
@@ -8,10 +8,8 @@
 	}
 	async function loadLogs() {
 		try {
-			await timeout(2000);
-			const url = `https://cbr-node.herokuapp.com/logs/${id}`;
-			const res = await fetch(url);
-			const data = await res.json();
+			await timeout(1000);
+			const data = $treeLogs;
 			return data;
 		} catch (error) {
 			throw new Error(data);
@@ -23,7 +21,6 @@
 		promise = loadLogs();
 		reload = false;
 	}
-
 </script>
 
 <div class="table-responsive">

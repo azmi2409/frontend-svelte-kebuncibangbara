@@ -1,44 +1,39 @@
 <script>
-	import Header from '$lib/Header.svelte';
-	import Footer from '$lib/Footer.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 	import Loading from '$lib/Loading.svelte';
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import { navigating } from '$app/stores';
 
 	let loading = false;
 
-	$: if ($navigating) {
+	async function loadSpinner() {
 		loading = true;
-		window.setTimeout(() => {
-			loading = false;
-		}, 1200);
+		const timeout = (ms) => {
+			return new Promise((resolve) => setTimeout(resolve, ms));
+		};
+		await timeout(3000);
+		loading = false;
+	}
+
+	$: if ($navigating) {
+		loadSpinner();
 	}
 </script>
 
-{#if loading}
-	<Loading />
-{:else}
-	<Header />
-	<main>
+<Header />
+<main>
+	{#if loading}
+		<Loading />
+	{:else}
 		<slot />
-	</main>
-	<Footer />
-{/if}
-
+	{/if}
+</main>
+<Footer />
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 	:global(body) {
 		font-family: 'Lato', sans-serif !important;
-	}
-	:global(button) {
-		box-shadow: 1px 3px 5px gray;
-	}
-	:global(button:hover){
-		background: linear-gradient(to right, #000000 0%, #434343 100%) !important;
-		transform: translateX(2px) translateY(-2px);
-		box-shadow: 5px 5px 8px gray;
-	}
-	main{
-		padding-top: 100px;
+		background-color: EFEFEF;
 	}
 </style>

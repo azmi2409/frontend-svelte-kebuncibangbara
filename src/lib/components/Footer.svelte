@@ -9,6 +9,9 @@
         background: rgb(211, 222, 220,0.8);
         border-radius: 10px;
 		border: 3px solid rgba(211, 222, 220, 0.8);
+        z-index: 0;
+        display: flex;
+        bottom: 0;
     }
     h4,a {
         font-family: 'Supermercado One', cursive;

@@ -11,14 +11,17 @@
 		CardTitle
 	} from 'sveltestrap';
 	import moment from 'moment';
-	import Fa from 'svelte-fa';
-	import { faTree } from '@fortawesome/free-solid-svg-icons';
+	import {goto} from '$app/navigation';
+	let hover = false;
 
 	export let tree;
-	const time = moment(tree.w_tanam).startOf('day').fromNow();
+	const time = (params) => moment(params).startOf('years').fromNow().split(' ')[0];
+	const hovering = (params) => {
+		params? hover = true : hover = false;
+	}
 </script>
 
-<Card class="rounded-3">
+<div class={hover? 'card hover rounded-3' : 'card rounded-3'} style="cursor:pointer;" on:mouseenter={() => hovering(true)} on:mouseleave={() => hovering(false)} on:click={() => goto(`/tree/${tree.id}`)}>
 	<CardHeader>
 		<CardTitle class="mb-3">
 			<h3 class="text-center">{tree.id}</h3>
@@ -27,7 +30,7 @@
 	<CardBody class="text-center">
 		<CardImg
 			loading="lazy"
-			class="py-2 px-2 mb-2"
+			class="d-none d-md-block mx-auto mb-2"
 			src="/longan/{tree.id.toLowerCase()}.jpg"
 			alt="Longan"
 			style="max-height: 200px; width:auto; border-radius:30px !important;"
@@ -36,14 +39,12 @@
 		<CardSubtitle class="py-1">Status: {tree.status}</CardSubtitle>
 		<CardSubtitle class="py-1">Lokasi: {tree.lokasi}</CardSubtitle>
 		<CardSubtitle class="py-1">Koordinat: {tree.koordinat}</CardSubtitle>
-		<CardSubtitle class="py-1">Waktu Tanam: {time}</CardSubtitle>
-		<CardFooter class="text-center py-3 mt-2">
-            <a href={`/tree/${tree.id}`}>
-			<button class="btn btn-secondary btn-lg px-4 py-2">
-				<Fa icon={faTree} />
-				Profile
-			</button>
-        </a>
-		</CardFooter>
+		<CardSubtitle class="py-1">Umur: {time(tree.w_tanam)} Tahun</CardSubtitle>
 	</CardBody>
-</Card>
+</div>
+
+<style>
+	.hover{
+		box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
+	}
+</style>
