@@ -3,14 +3,15 @@
 </script>
 
 <script>
-	import { goto } from '$app/navigation';
-
 	let path;
 	$: ({ path } = $page.url.pathname);
+	let y;
 </script>
 
-<header class="navbar navbar-expand flex-column flex-md-row sticky-top p-0 my-0 px-lg-5">
-	<a class="navbar navbar-brand mr-0 mr-md-2" href="/">
+<svelte:window bind:scrollY={y} />
+<div class="container-fluid sticky-md-top p-0">
+<header id={y > 50? 'sticky' : 'header'} class="navbar navbar-expand flex-column flex-md-row p-0 my-0 px-lg-5 justify-content-center">
+	<a class="navbar navbar-brand" href="/">
 		<img class="d-block" id="logo" alt="logo" src="/logo.png" />
 	</a>
 	<div class="navbar-nav-sroll ml-0">
@@ -18,24 +19,33 @@
 			<li class="nav-item">
 				<a class="nav-link active" href="/">Home</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/">Account</a>
+			</li>
 		</ul>
 	</div>
 </header>
+</div>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
 	header {
-		background: rgb(211, 222, 220, 0.8);
-		border: 3px solid rgba(211, 222, 220, 0.8);
-		backdrop-filter: blur(4px);
 		font-family: 'Roboto Mono', serif;
 	}
+	#sticky {
+		background: rgb(211, 222, 220,0.4);
+		backdrop-filter: blur(10px);
+	}
 	#logo {
-		max-height: 100px;
+		max-height: 50px;
 		width: auto;
 		cursor: pointer;
 	}
+
 	.nav-link {
-		color: #21325E;
+		color: #434343;
+	}
+	.nav-link:hover{
+		color: #F05454;
 	}
 </style>

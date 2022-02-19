@@ -51,11 +51,10 @@
 	<title>Kebun Kelengkeng Cibangbara</title>
 </svelte:head>
 
-<div class="container-fluid container-lg my-3 mx-auto py-2">
-	<div class="d-flex justify-content-center align-items-center mb-3">
-		<h3>List Kelengkeng</h3>
+	<div class="d-flex justify-content-center align-items-center mb-3 flex-column flex-lg-row">
+		<h2 class="p-2 text-uppercase">List Kelengkeng</h2>
 		<Wrapper>
-			<IconButton on:click={() => (grid = !grid)}>
+			<IconButton on:click={() => (grid = !grid)} style="background-color: #e6e6e6; border-radius: 50%; filter:drop-shadow(2px 2px 0.1em gray);">
 				<Icon name={grid ? 'table' : 'grid'} />
 			</IconButton>
 			<Tooltip>{grid? 'Open Table View' : 'Open Grid View'}</Tooltip>
@@ -69,9 +68,8 @@
 			in:fly={{ y: 200, duration: 1000 }}
 			out:fade={{ duration: 1000 }}
 		>
-			<div class="col-8">
+			<div class="col-10">
 				<DataTable trees={$treeData} />
 			</div>
 		</div>
 	{/if}
-</div>

@@ -1,7 +1,7 @@
 <script>
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
-	import Loading from '$lib/Loading.svelte';
+	import Loading from '$lib/components/Loading.svelte';
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import { navigating } from '$app/stores';
 
@@ -22,7 +22,7 @@
 </script>
 
 <Header />
-<main>
+<main class="container-fluid container-lg my-3 mx-auto py-2">
 	{#if loading}
 		<Loading />
 	{:else}
@@ -30,6 +30,7 @@
 	{/if}
 </main>
 <Footer />
+
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 	:global(body) {
