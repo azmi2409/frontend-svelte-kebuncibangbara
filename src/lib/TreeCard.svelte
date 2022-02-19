@@ -1,18 +1,14 @@
 <script>
 	import {
-		Button,
-		Card,
 		CardBody,
-		CardImg,
-		CardFooter,
 		CardHeader,
 		CardSubtitle,
-		Figure,
 		CardTitle
 	} from 'sveltestrap';
 	import moment from 'moment';
 	import { goto } from '$app/navigation';
 	let hover = false;
+	let loadImg = true;
 
 	export let tree;
 	const time = (params) => moment(params).startOf('years').fromNow().split(' ')[0];
@@ -41,7 +37,8 @@
 			on:error={e => e.target.src = '/longan/k1.jpg'}
 			src="/longan/{tree.id.toLowerCase()}.jpg"
 			alt="Longan"
-			style="max-height: 200px; width:auto; border-radius:30px !important;"
+			style="max-height: 200px; width:auto; border-radius:30px !important; filter:opacity({loadImg? 0 : 1});"
+			on:load={() => loadImg = false}
 		/>
 		<CardSubtitle class="py-1">Variant: {tree.variant}</CardSubtitle>
 		<CardSubtitle class="py-1">Status: {tree.status}</CardSubtitle>
