@@ -11,7 +11,7 @@
 
 <svelte:window bind:scrollY={y} />
 
-<header id={y > 101? 'sticky' : 'header'} class="navbar navbar-expand justify-content-between flex-column flex-md-row p-0 my-0 px-lg-5 {y > 101? 'sticky-md-top' : ''}">
+<header id={y > 101? 'sticky' : 'header'} class="navbar navbar-expand justify-content-between flex-column flex-md-row p-0 my-0 {y > 101? 'sticky-md-top' : ''}">
 	<a class="navbar navbar-brand" href="/">
 		<img class="d-block align-self-auto" id={y > 101? 'logo-sticky' : 'logo'} alt="logo" src={y > 101? '/logo.png' : '/logo-big.png'} >
 	</a>

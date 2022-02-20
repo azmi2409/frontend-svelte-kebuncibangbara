@@ -37,7 +37,7 @@
 			src="/longan/{tree.id.toLowerCase()}.jpg"
 			alt="Longan"
 			style="filter:opacity({loadImg ? 0 : 1});"
-			on:load|once={handleLoad()}
+			on:load={handleLoad()}
 		/>
 		<CardSubtitle class="py-1">Variant: {tree.variant}</CardSubtitle>
 		<CardSubtitle class="py-1">Status: {tree.status}</CardSubtitle>
@@ -58,6 +58,6 @@
 		max-height: 200px;
 		width: auto;
 		border-radius: 30px !important;
-		transition: opacity 1000ms ease;
+		transition: opacity 3000ms ease;
 	}
 </style>
