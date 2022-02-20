@@ -52,7 +52,7 @@
 	<title>Tree Profile: {profile.id}</title>
 </svelte:head>
 
-<div class="container py-5">
+<div class="container-fluid container-md py-5">
 	<div class="d-flex justify-content-center mb-5">
 		<h1>Tree Profile: {profile.id}</h1>
 	</div>
@@ -71,8 +71,8 @@
 		<div class="col-lg-auto col-md-auto">
 			<h5>Status: {profile.status}</h5>
 			<h5>Lokasi: {profile.lokasi}</h5>
-			<h6>Current URL : http://kebuncibangbara.xyz{$page.url.pathname}</h6>
-			<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}" squareSize="200" />
+			<h6>Current URL : http://kebuncibangbara.xyz{$page.url.pathname}/</h6>
+			<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}/" squareSize="200" />
 		</div>
 	</div>
 	<div class="row justify-content-center mt-5">

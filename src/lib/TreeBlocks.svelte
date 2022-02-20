@@ -22,7 +22,7 @@
 
 <div class="row px-5 mx-5">
 	{#each slice as tree (tree.no)}
-		<div class="col-md-4 col-sm-12 p-2 mb-2" out:fade={{duration: 100}} in:slide={{y:200,duration: 200}}>
+		<div class="col-12 col-md-4 p-2 mb-2" out:fade={{duration: 100}} in:slide={{y:200,duration: 200}}>
 			<TreeCard {tree}/>
 		</div>
 	{/each}
