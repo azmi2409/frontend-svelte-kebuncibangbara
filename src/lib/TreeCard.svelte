@@ -1,10 +1,5 @@
 <script>
-	import {
-		CardBody,
-		CardHeader,
-		CardSubtitle,
-		CardTitle
-	} from 'sveltestrap';
+	import { CardBody, CardHeader, CardSubtitle, CardTitle } from 'sveltestrap';
 	import moment from 'moment';
 	import { goto } from '$app/navigation';
 	let hover = false;
@@ -12,7 +7,7 @@
 
 	const handleLoad = () => {
 		loadImg = false;
-	}
+	};
 
 	export let tree;
 	const time = (params) => moment(params).startOf('years').fromNow().split(' ')[0];
@@ -36,12 +31,12 @@
 	<CardBody class="text-center">
 		<img
 			loading="lazy"
-			class="d-none d-md-block mx-auto mb-2 img-thumbnail border-0"
+			class="d-block mx-auto mb-2 img-thumbnail border-0"
 			id="pict"
-			on:error={e => e.target.src = '/longan/k1.jpg'}
+			on:error={(e) => (e.target.src = '/longan/k1.jpg')}
 			src="/longan/{tree.id.toLowerCase()}.jpg"
 			alt="Longan"
-			style="max-height: 200px; width:auto; border-radius:30px !important; filter:opacity({loadImg? 0 : 1});"
+			style="filter:opacity({loadImg ? 0 : 1});"
 			on:load|once={handleLoad()}
 		/>
 		<CardSubtitle class="py-1">Variant: {tree.variant}</CardSubtitle>
@@ -56,7 +51,13 @@
 	.hover {
 		box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
 		filter: drop-shadow(5px 5px 0.1em gray);
-		transform: translate(-2px,-1px);
+		transform: translate(-2px, -1px);
 		transition-duration: 250ms;
+	}
+	#pict {
+		max-height: 200px;
+		width: auto;
+		border-radius: 30px !important;
+		transition: opacity 1000ms ease;
 	}
 </style>

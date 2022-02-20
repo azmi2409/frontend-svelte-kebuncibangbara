@@ -23,6 +23,7 @@
 	import { treeData } from '$lib/stores/trees.js';
 	import { fade, fly } from 'svelte/transition';
 	import Tooltip, { Wrapper } from '@smui/tooltip';
+	import ThemeToggle from '$lib/components/ThemeToggle.svelte';
 
 	let grid = true;
 	export let trees;
