@@ -8,14 +8,16 @@
 			const url2 = `${variables.targetUrl}logs/${params.id}`;
 			const res2 = await fetch(url2);
 			const data2 = await res2.json();
-			return {
-				props: {
-					table: data2,
-					profile: data
-				}
-			};
+			if (res.status == 200) {
+				return {
+					props: {
+						table: data2,
+						profile: data
+					}
+				};
+			} return {status:res.status,error:data.message}
 		} catch (err) {
-			console.log('500:', err);
+			console.log(err);
 		}
 	}
 </script>
@@ -26,7 +28,6 @@
 	import Modal from '$lib/Modal.svelte';
 	import Qrjs from '$lib/Qrjs.svelte';
 	import { treeLogs } from '$lib/stores/trees';
-	import { Image, Figure } from 'sveltestrap';
 
 	export let profile;
 	export let table;
@@ -37,14 +38,13 @@
 	const toggleModal = () => (open = !open);
 
 	const setLogs = () => {
-		$treeLogs = table.map((data,i) => {
+		$treeLogs = table?.map((data, i) => {
 			i += 1;
 			data.no = i;
 			return data;
 		});
 	};
 	setLogs();
-
 	$: open = false;
 </script>
 
@@ -52,36 +52,33 @@
 	<title>Tree Profile: {profile.id}</title>
 </svelte:head>
 
-<div class="container-fluid container-md py-5">
-	<div class="d-flex justify-content-center mb-5">
-		<h1>Tree Profile: {profile.id}</h1>
+<div class="d-flex justify-content-center mb-5">
+	<h1>Tree Profile: {profile.id}</h1>
+</div>
+<div class="row justify-content-center align-items-center">
+	<div class="col-lg-auto col-md-auto text-center">
+		<img
+			class="img-thumbnail d-flex"
+			style="max-height: 200px; width:auto; border-radius:30px;"
+			loading="lazy"
+			src="/longan/{profile.id?.toLowerCase()}.jpg"
+			on:error={(e) => (e.target.src = '/longan/k1.jpg')}
+			alt="profile"
+		/>
 	</div>
-	<div class="row justify-content-center mb-5">
-		<div class="col-lg-auto col-md-auto text-center">
-			<Figure caption={profile.id}>
-				<Image
-					thumbnail
-					style="max-height: 400px; width:auto; border-radius:30px;"
-					loading="lazy"
-					src="/longan/{profile.id.toLowerCase()}.jpg"
-					alt="profile"
-				/>
-			</Figure>
-		</div>
-		<div class="col-lg-auto col-md-auto">
-			<h5>Status: {profile.status}</h5>
-			<h5>Lokasi: {profile.lokasi}</h5>
-			<h6>Current URL : http://kebuncibangbara.xyz{$page.url.pathname}/</h6>
-			<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}/" squareSize="200" />
-		</div>
+	<div class="col-lg-auto col-md-auto">
+		<h5>Status: {profile.status}</h5>
+		<h5>Lokasi: {profile.lokasi}</h5>
+		<h6>Current URL : http://kebuncibangbara.xyz{$page.url.pathname}/</h6>
+		<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}/" squareSize="200" />
 	</div>
-	<div class="row justify-content-center mt-5">
-		<div class="col-8 py-4">
-			<button on:click={toggleModal} class="d-flex btn btn-secondary rounded-3 px-4 mb-3"
-				>Add Log</button
-			>
-			<Modal bind:open id={profile.id} on:submitForm={reloadTable} />
-			<TableLog bind:reload />
-		</div>
+</div>
+<div class="row justify-content-center mt-5">
+	<div class="col-8 py-4">
+		<button on:click={toggleModal} class="d-flex btn btn-secondary rounded-3 px-4 mb-3"
+			>Add Log</button
+		>
+		<Modal bind:open id={profile.id} on:submitForm={reloadTable} />
+		<TableLog bind:reload />
 	</div>
 </div>

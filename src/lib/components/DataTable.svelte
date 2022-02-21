@@ -36,7 +36,7 @@
 						<Cell class="text-center p-1">
 							<img
 								loading="lazy"
-								src="/longan/{item.id.toLowerCase()}.jpg"
+								src="/longan/{item.id?.toLowerCase()}.jpg"
 								alt="Longan"
 								class="img-thumbnail"
 								style="height: 100px; width: auto;"
