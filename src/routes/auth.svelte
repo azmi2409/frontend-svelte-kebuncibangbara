@@ -28,10 +28,6 @@
 		const res = await post.json();
 		if (res.status == 'OK') {
 			session2 = true;
-            return {
-                status: res.status,
-                headers: res.headers
-            }
 		}
 	};
 
@@ -46,18 +42,10 @@
 
 	const handleLogout = async () => {
 		//const res = await SuperTokens.signOut();
-		const url = `${variables.targetUrl}auth/signout`;
-		const post = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-		});
-		const res = await post.json();
-        console.log(res);
-        if(res.status == 'OK'){
-            session2 = false;
-        }
+		const so = await SuperTokens.signOut();
+		console.log(so)
+		const refresh = await SuperTokens.attemptRefreshingSession();
+		session2 = false;
 	};
 
 	onMount(() => {
