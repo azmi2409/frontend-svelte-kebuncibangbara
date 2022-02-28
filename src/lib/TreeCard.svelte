@@ -33,8 +33,8 @@
 			loading="lazy"
 			class="d-block mx-auto mb-2 img-thumbnail border-0"
 			id="pict"
-			on:error={(e) => (e.target.src = '/longan/k1.jpg')}
-			src="/longan/{tree.id?.toLowerCase()}.jpg"
+			on:error={(e) => (e.target.src = 'https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/k1.jpg')}
+			src="https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/{tree.id?.toLowerCase()}.jpg"
 			alt="Longan"
 			style="filter:opacity({loadImg ? 0 : 1});"
 			on:load={handleLoad()}

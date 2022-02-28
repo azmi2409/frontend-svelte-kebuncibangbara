@@ -8,7 +8,6 @@ export async function postLog(data) {
             },
 			body: postData
 		});
-        console.log(postData)
 		const post = await res.json();
         return post
 	} catch (error) {

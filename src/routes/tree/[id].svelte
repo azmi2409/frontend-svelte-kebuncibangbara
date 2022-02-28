@@ -61,7 +61,7 @@
 			class="img-thumbnail d-flex"
 			style="max-height: 200px; width:auto; border-radius:30px;"
 			loading="lazy"
-			src="/longan/{profile.id?.toLowerCase()}.jpg"
+			src="https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/{profile.id?.toLowerCase()}.jpg"
 			on:error={(e) => (e.target.src = '/longan/k1.jpg')}
 			alt="profile"
 		/>
