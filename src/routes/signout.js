@@ -3,6 +3,7 @@ export async function post({request}) {
     const url = `${variables.targetUrl}auth/signout`;
     const res = await fetch(url, {
         method: 'post',
+        headers: request.headers
     });
     console.log(res)
     /*if(status.status == 'OK'){

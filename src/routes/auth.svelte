@@ -24,6 +24,9 @@
 		});
 		const res = await post.json();
 		console.log(res);
+		if (res.status == 'OK'){
+			session2 = true
+		}
 	};
 
 	async function doesSessionExist() {
@@ -36,9 +39,8 @@
 	}
 
 	const handleLogout = async () => {
-		const res = await SuperTokens.signOut();
-		/*const post = await fetch('/signout', { method: 'post' });
-		const res = await post.json();*/
+		const post = await fetch('/signout', { method: 'post' });
+		const res = await post.json();
 		console.log(res);
 	};
 
