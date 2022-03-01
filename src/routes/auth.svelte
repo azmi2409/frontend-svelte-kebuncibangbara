@@ -2,6 +2,7 @@
 	import { variables } from '$lib/variables';
 	import SuperTokens from 'supertokens-website';
 	import { onMount } from 'svelte';
+	import { post } from './signin';
 
 	let session2 = false;
 	let data = {
@@ -17,18 +18,12 @@
 		]
 	};
 	const handleSubmit = async () => {
-		const url = `${variables.targetUrl}auth/signin`;
-		const post = await fetch(url, {
+		const post = await fetch('/signin', {
 			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
 			body: JSON.stringify(data)
 		});
 		const res = await post.json();
-		if (res.status == 'OK') {
-			session2 = true;
-		}
+		console.log(res);
 	};
 
 	async function doesSessionExist() {
@@ -41,11 +36,10 @@
 	}
 
 	const handleLogout = async () => {
-		//const res = await SuperTokens.signOut();
-		const so = await SuperTokens.signOut();
-		console.log(so)
-		const refresh = await SuperTokens.attemptRefreshingSession();
-		session2 = false;
+		const res = await SuperTokens.signOut();
+		/*const post = await fetch('/signout', { method: 'post' });
+		const res = await post.json();*/
+		console.log(res);
 	};
 
 	onMount(() => {
