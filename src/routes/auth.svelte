@@ -1,10 +1,8 @@
 <script>
-	import { variables } from '$lib/variables';
-	import SuperTokens from 'supertokens-website';
+	import { session } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { post } from './signin';
 
-	let session2 = false;
+	let session2 = true;
 	let data = {
 		formFields: [
 			{
@@ -24,35 +22,35 @@
 		});
 		const res = await post.json();
 		console.log(res);
-		if (res.status == 'OK'){
-			session2 = true
+		if (res.status == 'OK') {
+			session2 = true;
+			doesSessionExist();
 		}
 	};
 
-	async function doesSessionExist() {
-		if (await SuperTokens.doesSessionExist()) {
-			session2 = true;
-		} else {
-			// user has not logged in yet
-			session2 = false;
-		}
+	const doesSessionExist = async () => {
+		const post = await fetch('/auth', {
+			method: 'post'
+		});
+		const res = await post.json();
+		console.log(res);
 	}
 
 	const handleLogout = async () => {
-		const post = await fetch('/signout', { method: 'post' });
+		const post = await fetch('/signout', { method: 'post'});
 		const res = await post.json();
 		console.log(res);
+		session2 = false;
 	};
 
 	onMount(() => {
-		SuperTokens.init({
-			apiDomain: `${variables.targetUrl}`,
-			apiBasePath: '/auth'
-		});
-		doesSessionExist();
-	});
+		doesSessionExist()
+	})
 </script>
 
+<svelte:head>
+	<title>Login Form</title>
+</svelte:head>
 <div class="d-flex justify-content-center align-items-center flex-column" style="height: 70vh;">
 	<form on:submit|preventDefault={handleSubmit}>
 		<div class="mb-3">

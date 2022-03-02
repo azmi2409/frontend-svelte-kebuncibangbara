@@ -1,17 +1,11 @@
-<script context="module">
-	import { page } from '$app/stores';
-</script>
-
 <script>
-	let path;
-	$: ({ path } = $page.url.pathname);
 	let y;
 
 </script>
 
 <svelte:window bind:scrollY={y} />
 
-<header id={y > 101? 'sticky' : 'header'} class="navbar navbar-expand justify-content-between flex-column flex-md-row p-0 my-0 {y > 101? 'sticky-md-top' : ''}">
+<header id={y > 101? 'sticky' : 'header'} class="navbar navbar-expand justify-content-between flex-column flex-md-row p-0 my-0 {y > 101? 'sticky-top' : ''}">
 	<a class="navbar navbar-brand" href="/">
 		<img class="d-block align-self-auto" id={y > 101? 'logo-sticky' : 'logo'} alt="logo" src={y > 101? '/logo.png' : '/logo-big.png'} >
 	</a>
@@ -21,7 +15,7 @@
 				<a class="nav-link active" href="/">Home</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/">Account</a>
+				<a class="nav-link" href="/auth">Account</a>
 			</li>
 		</ul>
 	</div>
@@ -33,22 +27,23 @@
 		font-family: 'Roboto Mono', serif;
 		padding-left: 12% !important;
 		padding-right: 12% !important;
+		transition: all 0.3s ease-in-out;
 	}
 	#sticky {
 		background: rgb(211, 222, 220,0.4);
 		backdrop-filter: blur(10px);
 	}
 	#logo {
-		height: 100px;
+		max-height: 100px;
 		width: auto;
 		cursor: pointer;
-		transition: all 0.5s ease;
+		transition: all 0.5s ease-in;
 	}
 	#logo-sticky {
 		max-height: 50px;
 		width: auto;
 		cursor: pointer;
-		transition: all 0.5s ease;
+		transition: all 0.5s ease-out;
 	}
 
 	.nav-link {

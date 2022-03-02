@@ -1,8 +1,12 @@
 <script context="module">
 	import { variables } from '$lib/variables';
-	export async function load({ fetch }) {
+	export async function load({ fetch , session }) {
 		try {
-			const res = await fetch(`${variables.targetUrl}trees/`);
+			const res = await fetch(`${variables.targetUrl}trees/`,{
+				headers: {
+					cookie: session.user.oriCookie
+				}
+			});
 			const data = await res.json();
 			return {
 				props: {

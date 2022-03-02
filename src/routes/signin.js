@@ -1,4 +1,5 @@
 import { variables } from '$lib/variables';
+
 export async function post({request}){
     const url = `${variables.targetUrl}auth/signin`;
     const body = await request.body;
@@ -9,7 +10,5 @@ export async function post({request}){
         },
         body: body
     });
-    
-    //const res = await fetch(url,event.request.body)
     return res;
 }

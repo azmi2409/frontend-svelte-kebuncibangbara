@@ -1,12 +1,20 @@
 <script context="module">
 	import { variables } from '$lib/variables';
-	export async function load({ params, fetch }) {
+	export async function load({ params, fetch, session }) {
 		try {
 			const url = `${variables.targetUrl}trees/${params.id}`;
-			const res = await fetch(url);
+			const res = await fetch(url, {
+				headers: {
+					cookie: session.user.oriCookie
+				}
+			});
 			const data = await res.json();
 			const url2 = `${variables.targetUrl}logs/${params.id}`;
-			const res2 = await fetch(url2);
+			const res2 = await fetch(url2, {
+				headers: {
+					cookie: session.user.oriCookie
+				}
+			});
 			const data2 = await res2.json();
 			if (res.status == 200) {
 				return {
@@ -15,7 +23,8 @@
 						profile: data
 					}
 				};
-			} return {status:res.status,error:data.message}
+			}
+			return { status: res.status, error: data.message };
 		} catch (err) {
 			console.log(err);
 		}
