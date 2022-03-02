@@ -2,7 +2,6 @@
 	import { session } from '$app/stores';
 	import { onMount } from 'svelte';
 
-	let session2 = true;
 	let data = {
 		formFields: [
 			{
@@ -21,11 +20,6 @@
 			body: JSON.stringify(data)
 		});
 		const res = await post.json();
-		console.log(res);
-		if (res.status == 'OK') {
-			session2 = true;
-			doesSessionExist();
-		}
 	};
 
 	const doesSessionExist = async () => {
@@ -33,19 +27,13 @@
 			method: 'post'
 		});
 		const res = await post.json();
-		console.log(res);
 	}
 
 	const handleLogout = async () => {
 		const post = await fetch('/signout', { method: 'post'});
 		const res = await post.json();
-		console.log(res);
-		session2 = false;
 	};
 
-	onMount(() => {
-		doesSessionExist()
-	})
 </script>
 
 <svelte:head>
@@ -76,7 +64,7 @@
 			<button type="submit" class="btn btn-primary px-5 mb-5 w-100">Login</button>
 		</div>
 	</form>
-	{#if session2}
+	{#if $session.user.authenticated}
 		<h1>Logged in</h1>
 		<div class="d-flex">
 			<button on:click={handleLogout} class="btn btn-primary btn-lg">Logout</button>

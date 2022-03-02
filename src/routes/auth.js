@@ -1,19 +1,17 @@
 import { variables } from '$lib/variables';
 import { parse } from 'cookie';
-
-export async function post({ request }) {
+export async function post(event) {
 	const url = `${variables.targetUrl}session/refresh`;
-	const cookies = parse(request.headers.get('cookie') || '');
+	const cookies = parse(event.request.headers.get('cookie') || '')
 	const res = await fetch(url, {
 		method: 'post',
 		headers: {
-			cookie: request.headers.get("cookie"),
+			cookie: `sIdRefreshToken=${cookies.sIdRefreshToken}; sRefreshToken=${cookies.sRefreshToken}`,
 			rid: 'session'
 		}
 	});
-	const message = await res.json();
-	console.log(res.status)
 	return {
-		status: res.status
-	}
+		status: res.status,
+		headers: res.headers
+	};
 }
