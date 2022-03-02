@@ -3,21 +3,30 @@
 	import { Icon } from 'sveltestrap';
 	let y;
 	let show = false;
+	let treshold = 100;
+	let sticky = false
+
+	$: if(y >= 100){
+		sticky = true
+	} else if(y == 0){
+		sticky = false
+	}
+
 </script>
 
 <svelte:window bind:scrollY={y} />
 
 <header
-	id={y > 101 ? 'sticky' : 'header'}
-	class="navbar navbar-expand-lg {y > 101 ? 'sticky-top' : ''}"
+	id={sticky ? 'sticky' : 'header'}
+	class="navbar navbar-expand-lg {sticky ? 'sticky-top' : ''}"
 >
 	<div class="navbar navbar-brand">
 		<img
 			on:click={() => goto('/')}
 			class="d-flex align-self-auto"
-			id={y > 101 ? 'logo-sticky' : 'logo'}
+			id={sticky ? 'logo-sticky' : 'logo'}
 			alt="logo"
-			src={y > 101 ? '/logo.png' : '/logo-big.png'}
+			src={sticky ? '/logo.png' : '/logo-big.png'}
 		/>
 	</div>
 

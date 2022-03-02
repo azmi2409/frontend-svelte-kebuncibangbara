@@ -61,11 +61,11 @@
 	<title>Tree Profile: {profile.id}</title>
 </svelte:head>
 
-<div class="d-flex justify-content-center mb-5">
+<div class="d-flex justify-content-center mb-3 mb-md-5">
 	<h1>Tree Profile: {profile.id}</h1>
 </div>
-<div class="row justify-content-center align-items-center">
-	<div class="col-lg-auto col-md-auto text-center">
+<div class="row justify-content-center align-items-center px-2">
+	<div class="col-auto mb-3 mb-md-0">
 		<img
 			class="img-thumbnail d-flex"
 			style="max-height: 200px; width:auto; border-radius:30px;"
@@ -75,19 +75,17 @@
 			alt="profile"
 		/>
 	</div>
-	<div class="col-lg-auto col-md-auto">
+	<div class="col-auto text-center text-md-start">
 		<h5>Status: {profile.status}</h5>
 		<h5>Lokasi: {profile.lokasi}</h5>
 		<h6>Current URL : http://kebuncibangbara.xyz{$page.url.pathname}/</h6>
 		<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}/" squareSize="200" />
 	</div>
 </div>
-<div class="row justify-content-center mt-5">
-	<div class="col-8 py-4">
+	<div class="col-12 my-2 py-2 py-md-0 my-md-0">
 		<button on:click={toggleModal} class="d-flex btn btn-secondary rounded-3 px-4 mb-3"
 			>Add Log</button
 		>
 		<Modal bind:open id={profile.id} on:submitForm={reloadTable} />
 		<TableLog bind:reload />
-	</div>
 </div>
