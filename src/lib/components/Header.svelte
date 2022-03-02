@@ -19,32 +19,26 @@
 			alt="logo"
 			src={y > 101 ? '/logo.png' : '/logo-big.png'}
 		/>
-		<div />
+	</div>
 
 		<button
 			class="navbar-toggler"
 			type="button"
-			data-bs-toggle="collapse"
-			data-bs-target="#nav-open"
-			aria-controls="nav-open"
-			aria-expanded="false"
-			aria-label="Toggle navigation"
-			on:click={() => show = !show}
+			on:click={() => (show = !show)}
 		>
-			<Icon name="list"></Icon>
+			<Icon name={show? "x-circle-fill" : "list"} />
 		</button>
 
-		<div id="nav-open" class="collapse navbar-collapse {show? 'show' : ''}">
+		<div class="collapse navbar-collapse {show ? 'show' : ''}">
 			<ul class="navbar-nav text-center">
 				<li class="nav-item">
-					<a class="nav-link active" href="/">Home</a>
+					<a class="nav-link" href="/">Home</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/auth">Account</a>
 				</li>
 			</ul>
 		</div>
-	</div>
 </header>
 
 <style>

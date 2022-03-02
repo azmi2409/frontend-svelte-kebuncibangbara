@@ -3,6 +3,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 	import 'bootstrap/dist/css/bootstrap.min.css';
+	import 'bootstrap-icons/font/bootstrap-icons.css'
 	import { navigating } from '$app/stores';
 
 	let loading = false;
