@@ -64,10 +64,10 @@
 <div class="d-flex justify-content-center mb-3 mb-md-5">
 	<h1>Tree Profile: {profile.id}</h1>
 </div>
-<div class="row justify-content-center align-items-center px-2">
+<div class="row justify-content-center px-2">
 	<div class="col-auto mb-3 mb-md-0">
 		<img
-			class="img-thumbnail d-flex"
+			class="img-thumbnail"
 			style="max-height: 200px; width:auto; border-radius:30px;"
 			loading="lazy"
 			src="https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/{profile.id?.toLowerCase()}.jpg"

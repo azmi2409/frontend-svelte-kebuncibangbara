@@ -3,7 +3,6 @@
 	import { Icon } from 'sveltestrap';
 	let y;
 	let show = false;
-	let treshold = 100;
 	let sticky = false
 
 	$: if(y >= 100){
@@ -54,8 +53,8 @@
 	@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
 	header {
 		font-family: 'Roboto Mono', serif;
-		padding-left: 12% !important;
-		padding-right: 12% !important;
+		padding-left: 10% !important;
+		padding-right: 10% !important;
 		transition: all 0.3s ease-in-out;
 	}
 	#sticky {
