@@ -7,18 +7,15 @@
 
 	let loading = false;
 
-	async function loadSpinner() {
-		loading = true;
+	async function stopLoading() {
 		const timeout = (ms) => {
 			return new Promise((resolve) => setTimeout(resolve, ms));
 		};
-		await timeout(3000);
+		await timeout(200);
 		loading = false;
 	}
 
-	$: if ($navigating) {
-		loadSpinner();
-	}
+	$: $navigating? loading = true : stopLoading();
 </script>
 
 <Header />
@@ -26,7 +23,7 @@
 	{#if loading}
 		<Loading />
 	{:else}
-		<slot />
+		<slot/>
 	{/if}
 </main>
 <Footer />
