@@ -14,11 +14,11 @@
 		petugas: '',
 		keterangan: ''
 	};
-	let data = {...originalData};
+	let data = { ...originalData };
 	const toggle = () => (open = !open);
 	const handleSubmit = () => {
 		const json = () => postLog(data);
-		let arr = {...data};
+		let arr = { ...data };
 		arr.no = $treeLogs.length + 1;
 		$treeLogs = [...$treeLogs, arr];
 		const eventDispatch = () => {
@@ -28,9 +28,9 @@
 		};
 		return (
 			json(),
-			data = {
+			(data = {
 				...originalData
-			},
+			}),
 			eventDispatch(),
 			toggle()
 		);
@@ -43,13 +43,13 @@
 		<form class="container px-3" on:submit|preventDefault={handleSubmit}>
 			<div class="d-block justify-content-center mb-3">
 				<label class="form-label" for="perlakuan">Perlakuan</label>
-				<input
-					bind:value={data.perlakuan}
-					class="form-control"
-					name="perlakuan"
-					type="text"
-					required
-				/>
+				<select bind:value={data.perlakuan} class="form-select" name="perlakuan" required>
+				<option>Kocor POC</option>
+				<option>Booster Buah</option>
+				<option>Pemupukan NPK</option>
+				<option>Pemupukan Kompos</option>
+				<option>Penyiangan</option>
+				</select>
 				<div class="mt-3">
 					<label class="form-label" for="tanggal">Tanggal</label>
 					<input
@@ -72,7 +72,7 @@
 				</div>
 				<div class="mt-3">
 					<label class="form-label" for="keterangan">Keterangan</label>
-					<input bind:value={data.keterangan} class="form-control" name="keterangan" type="text" />
+					<textarea bind:value={data.keterangan} class="form-control" name="keterangan" type="text" />
 				</div>
 				<div class="mt-3">
 					<button type="submit" class="btn btn-secondary btn-lg px-3">Submit</button>

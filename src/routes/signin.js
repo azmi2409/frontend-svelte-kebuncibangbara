@@ -10,5 +10,6 @@ export async function post({ request }) {
 		},
 		body: body
 	});
+
 	return res;
 }

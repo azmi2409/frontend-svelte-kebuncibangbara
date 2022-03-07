@@ -3,20 +3,36 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import Loading from '$lib/components/Loading.svelte';
 	import 'bootstrap/dist/css/bootstrap.min.css';
-	import 'bootstrap-icons/font/bootstrap-icons.css'
+	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import { navigating } from '$app/stores';
+	import { session } from '$app/stores';
+	import Auth from '$lib/components/Auth.svelte'
 
 	let loading = false;
 
+	const timeout = (ms) => {
+		return new Promise((resolve) => setTimeout(resolve, ms));
+	};
+
 	async function stopLoading() {
-		const timeout = (ms) => {
-			return new Promise((resolve) => setTimeout(resolve, ms));
-		};
-		await timeout(200);
-		loading = false;
+		if (loading) {
+			await timeout(200);
+			return (loading = false);
+		}
+		return;
 	}
 
-	$: $navigating? loading = true : stopLoading();
+	async function startLoading() {
+		await timeout(100);
+		if ($navigating) {
+			return (loading = true);
+		}
+		return;
+	}
+
+	$: loggedIn = $session.user.authenticated
+
+	$: $navigating ? startLoading() : stopLoading();
 </script>
 
 <Header />
@@ -24,7 +40,11 @@
 	{#if loading}
 		<Loading />
 	{:else}
-		<slot/>
+		{#if loggedIn}
+		<slot />
+		{:else}
+		<Auth />
+		{/if}
 	{/if}
 </main>
 <Footer />

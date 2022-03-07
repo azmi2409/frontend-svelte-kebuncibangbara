@@ -1,14 +1,23 @@
 <script>
-	import DataTable, { Head, Body, Row, Cell, Pagination } from '@smui/data-table';
-	import Select, { Option } from '@smui/select';
-	import IconButton from '@smui/icon-button';
-	import { Label } from '@smui/common';
 	import moment from 'moment';
 	import { goto } from '$app/navigation';
+	import { Pagination, PaginationItem, PaginationLink } from 'sveltestrap';
 
 	export let trees = [];
 	let rowsPerPage = 10;
 	let currentPage = 0;
+
+	const handleKeyDown = (e) => {
+		if (e.keyCode == 39) {
+			if (currentPage != lastPage) currentPage++;
+			console.log(currentPage);
+		}
+		if (e.keyCode == 37) {
+			if (currentPage != 0) currentPage--;
+			console.log();
+		}
+		return;
+	};
 
 	$: items = trees.slice();
 	$: start = currentPage * rowsPerPage;
@@ -18,80 +27,100 @@
 	$: if (currentPage > lastPage) {
 		currentPage = lastPage;
 	}
+	$: editRows = (e) => {
+		rowsPerPage = parseInt(e.target.value) || 10;
+	};
 </script>
 
-		<DataTable table$aria-label="List Kelengkeng" style="width: 100%;">
-			<Head>
-				<Row>
-					<Cell class="text-center">Photo</Cell>
-					<Cell class="text-center">Nomor</Cell>
-					<Cell class="text-center">Lokasi</Cell>
-					<Cell class="text-center">Status</Cell>
-					<Cell class="text-center">Umur</Cell>
-				</Row>
-			</Head>
-			<Body style="cursor:pointer;">
-				{#each slice as item (item.id)}
-					<Row on:click={() => goto(`/tree/${item.id}`)}>
-						<Cell class="text-center p-1">
-							<img
-								loading="lazy"
-								src="https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/{item.id?.toLowerCase()}.jpg"
-								alt="Longan"
-								class="img-thumbnail"
-								style="height: 100px; width: auto;"
-							/>
-						</Cell>
-						<Cell class="text-center">{item.id}</Cell>
-						<Cell class="text-center">{item.lokasi}</Cell>
-						<Cell class="text-center">{item.status}</Cell>
-						<Cell class="text-center"
-							>{moment(item.w_tanam).startOf('years').fromNow().split(' ')[0]} Tahun</Cell
-						>
-					</Row>
-				{/each}
-			</Body>
+<svelte:window on:keydown={handleKeyDown} />
 
-			<Pagination slot="paginate">
-				<svelte:fragment slot="rowsPerPage">
-					<Label>Rows Per Page</Label>
-					<Select variant="outlined" bind:value={rowsPerPage} noLabel>
-						<Option value={10}>10</Option>
-						<Option value={25}>25</Option>
-						<Option value={50}>50</Option>
-					</Select>
-				</svelte:fragment>
-				<svelte:fragment slot="total">
-					{start + 1}-{end} of {items.length}
-				</svelte:fragment>
+<div class="d-flex justify-content-between mb-2 mt-2 align-items-center">
+    <span class="px-2">
+		Showing : {start + 1}-{end} of {items.length}
+	</span>
+    <div class=hstack>
+	<span class="px-2"><h6>Rows per page:</h6></span>
+	<select on:change={editRows} class="form-select-sm">
+		<option selected>10</option>
+		<option>25</option>
+		<option>50</option>
+	</select>
+</div>
+</div>
 
-				<IconButton
-					class="material-icons"
-					action="first-page"
-					title="First page"
-					on:click={() => (currentPage = 0)}
-					disabled={currentPage === 0}>first_page</IconButton
-				>
-				<IconButton
-					class="material-icons"
-					action="prev-page"
-					title="Prev page"
-					on:click={() => currentPage--}
-					disabled={currentPage === 0}>chevron_left</IconButton
-				>
-				<IconButton
-					class="material-icons"
-					action="next-page"
-					title="Next page"
-					on:click={() => currentPage++}
-					disabled={currentPage === lastPage}>chevron_right</IconButton
-				>
-				<IconButton
-					class="material-icons"
-					action="last-page"
-					title="Last page"
-					on:click={() => (currentPage = lastPage)}
-					disabled={currentPage === lastPage}>last_page</IconButton
-				>
-			</Pagination>
-		</DataTable>
+<div class="table-responsive">
+	<table class="table align-middle table-borderless table-hover table-striped">
+		<thead class="border-1">
+			<tr>
+				<th class="text-center" scope="col">Photo</th>
+				<th class="text-center" scope="col">Nomor</th>
+				<th class="text-center" scope="col">Lokasi</th>
+				<th class="text-center" scope="col">Status</th>
+				<th class="text-center" scope="col">Umur</th>
+			</tr>
+		</thead>
+		<tbody>
+			{#each slice as item (item.no)}
+				<tr on:click={() => goto(`/tree/${item.id}`)}>
+					<td class="text-center">
+						<img
+							loading="lazy"
+							src="https://objectstorage.ap-singapore-1.oraclecloud.com/n/axmb2z4evhfl/b/kebuncibangbara/o/longan/{item.id?.toLowerCase()}.jpg"
+							on:error={(e) => (e.target.src = '/longan/k1.jpg')}
+							alt="Longan"
+							class="img-thumbnail"
+							style="height: 100px; width: auto;"
+						/>
+					</td>
+					<td class="text-center">{item.id}</td>
+					<td class="text-center">{item.lokasi}</td>
+					<td class="text-center">{item.status}</td>
+					<td class="text-center"
+						>{moment(item.w_tanam).startOf('years').fromNow().split(' ')[0]} Tahun</td
+					><td />
+				</tr>
+			{/each}
+		</tbody>
+	</table>
+</div>
+<div class="d-flex justify-content-center align-items-center mt-2">
+	<Pagination ariaLabel="Longan Page Navigation">
+		<PaginationItem class={currentPage != 0 ? '' : 'disabled'}>
+			<PaginationLink on:click={() => (currentPage = 0)} first />
+		</PaginationItem>
+		<PaginationItem class={currentPage != 0 ? '' : 'disabled'}>
+			<PaginationLink on:click={() => currentPage--} previous />
+		</PaginationItem>
+		<PaginationItem class={currentPage == 0 ? 'active' : ''}>
+			<PaginationLink on:click={() => (currentPage = 0)}>1</PaginationLink>
+		</PaginationItem>
+		<PaginationItem class={currentPage == 1 ? 'active' : ''}>
+			<PaginationLink on:click={() => (currentPage = 1)}>2</PaginationLink>
+		</PaginationItem>
+		<PaginationItem class={currentPage == 2 ? 'active' : ''}>
+			<PaginationLink on:click={() => (currentPage = 2)}>3</PaginationLink>
+		</PaginationItem>
+		<PaginationItem class={currentPage == 3 ? 'active' : ''}>
+			<PaginationLink on:click={() => (currentPage = 3)}>4</PaginationLink>
+		</PaginationItem>
+		<PaginationItem class={currentPage == 4 ? 'active' : ''}>
+			<PaginationLink on:click={() => (currentPage = 4)}>5</PaginationLink>
+		</PaginationItem>
+		{#if currentPage > 4}
+			<PaginationItem active>
+				<PaginationLink on:click={() => {}}>{currentPage + 1}</PaginationLink>
+			</PaginationItem>
+		{/if}
+		<PaginationItem class={currentPage != lastPage ? '' : 'disabled'}>
+			<PaginationLink on:click={() => currentPage++} next />
+		</PaginationItem>
+		<PaginationItem class={currentPage != lastPage ? '' : 'disabled'}>
+			<PaginationLink on:click={() => (currentPage = lastPage)} last />
+		</PaginationItem>
+	</Pagination>
+</div>
+<style>
+	thead{
+		font-family: 'Roboto',serif;
+	}
+</style>

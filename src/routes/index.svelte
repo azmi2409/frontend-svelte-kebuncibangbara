@@ -1,8 +1,8 @@
 <script context="module">
 	import { variables } from '$lib/variables';
-	export async function load({ fetch , session }) {
+	export async function load({ fetch, session }) {
 		try {
-			const res = await fetch(`${variables.targetUrl}trees/`,{
+			const res = await fetch(`${variables.targetUrl}trees/`, {
 				headers: {
 					cookie: session.user.oriCookie
 				}
@@ -22,13 +22,17 @@
 <script>
 	import TreeBlocks from '$lib/TreeBlocks.svelte';
 	import DataTable from '$lib/components/DataTable.svelte';
-	import { Icon } from 'sveltestrap';
-	import IconButton from '@smui/icon-button';
-	import { treeData } from '$lib/stores/trees.js';
+	import { header, treeData } from '$lib/stores/trees.js';
 	import { fade, fly } from 'svelte/transition';
-	import Tooltip, { Wrapper } from '@smui/tooltip';
+	import {
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    DropdownToggle,
+	Icon
+  } from 'sveltestrap';
 
-	let grid = true;
+	let grid = false;
 	export let trees;
 
 	const addTree = () => {
@@ -44,6 +48,11 @@
 		return $treeData;
 	}
 
+	const handleGrid = (e) => {
+		e.stopPropagation();
+		return grid = !grid;
+	} 
+
 	let promise = loadData();
 </script>
 
@@ -54,26 +63,34 @@
 	/>
 	<title>Kebun Kelengkeng Cibangbara</title>
 </svelte:head>
-
-	<div class="d-flex justify-content-center align-items-center mb-3 flex-column flex-lg-row">
-		<h2 class="p-2 text-uppercase">List Kelengkeng</h2>
-		<Wrapper>
-			<IconButton on:click={() => (grid = !grid)} style="background-color: #e6e6e6; border-radius: 50%; filter:drop-shadow(2px 2px 0.1em gray);">
-				<Icon name={grid ? 'table' : 'grid'} />
-			</IconButton>
-			<Tooltip>{grid? 'Open Table View' : 'Open Grid View'}</Tooltip>
-		</Wrapper>
+<div class="row justify-content-center">
+	<div class="col-12 col-md-10">
+		<span class="d-flex justify-content-center">
+			<h2 class="px-2 text-uppercase">List Kelengkeng</h2>
+		</span>
+		<Dropdown class="m-2">
+			<DropdownToggle caret><Icon name="gear"></Icon></DropdownToggle>
+			<DropdownMenu>
+				<DropdownItem header>Options</DropdownItem>
+				<DropdownItem on:click={handleGrid}>Switch to {grid? 'DataTable View' : 'Grid View'}</DropdownItem>
+			</DropdownMenu>
+		</Dropdown>
 	</div>
-	{#if grid}
-		<TreeBlocks trees={$treeData} />
-	{:else}
-		<div
-			class="row justify-content-center"
-			in:fly={{ y: 200, duration: 1000 }}
-			out:fade={{ duration: 1000 }}
-		>
-			<div class="col-10">
-				<DataTable trees={$treeData} />
-			</div>
+</div>
+{#if grid}
+	<div class="row justify-content-center">
+		<div class="col-12 col-md-10">
+	<TreeBlocks trees={$treeData} />
+</div>
+</div>
+{:else}
+	<div
+		class="row justify-content-center"
+		in:fly={{ y: 200, duration: 1000 }}
+		out:fade={{ duration: 1000 }}
+	>
+		<div class="col-12 col-md-10">
+			<DataTable trees={$treeData} />
 		</div>
-	{/if}
+	</div>
+{/if}

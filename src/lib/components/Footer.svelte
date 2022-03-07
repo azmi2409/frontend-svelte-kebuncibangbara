@@ -4,9 +4,6 @@
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
-    footer {
-        bottom: 0;
-    }
     h6,a {
         font-family: 'Roboto Mono',serif;
         color: #434343;

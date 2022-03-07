@@ -52,7 +52,7 @@
 					{/each}
 				{:else}
 					<tr>
-						<th colspan="5" class="text-center bg-dark" style="color:white;">No Data</th>
+						<th colspan="5" class="text-center" style="color:blue;">No Data</th>
 					</tr>
 				{/if}
 			{/await}

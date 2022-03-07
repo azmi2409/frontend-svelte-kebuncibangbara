@@ -17,7 +17,7 @@
 
 <header
 	id={sticky ? 'sticky' : 'header'}
-	class="navbar navbar-expand-lg {sticky ? 'sticky-top' : ''}"
+	class="navbar navbar-expand-lg flex-wrap {sticky ? 'sticky-top' : ''}"
 >
 	<div class="navbar navbar-brand">
 		<img
@@ -37,13 +37,16 @@
 			<Icon name={show? "x-circle-fill" : "list"} />
 		</button>
 
-		<div class="collapse navbar-collapse {show ? 'show' : ''}">
+		<div class="collapse px-lg-5 mx-lg-5 navbar-collapse justify-content-end {show ? 'show' : ''}">
 			<ul class="navbar-nav text-center">
 				<li class="nav-item">
-					<a class="nav-link" href="/">Home</a>
+					<a class="nav-link" href="/" style="color: black;"><Icon name="house-door-fill" /><span class="mx-2">Home</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/auth">Account</a>
+					<a class="nav-link" href="/auth" style="color: black;"><Icon name="person-fill" /><span class="mx-2">Account</span></a>
+				</li>
+				<li class="nav-item">
+					<div class="nav-link" on:click={() => goto('/test')} href="/auth" style="color: black;"><Icon name="gear-fill" /><span class="mx-2">Settings</span></div>
 				</li>
 			</ul>
 		</div>

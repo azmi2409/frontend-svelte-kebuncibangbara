@@ -82,10 +82,11 @@
 		<Qrjs codeValue="http://kebuncibangbara.xyz{$page.url.pathname}/" squareSize="200" />
 	</div>
 </div>
-	<div class="col-12 my-2 py-2 py-md-0 my-md-0">
+<div class="row justify-content-center">
+	<div class="col-12 col-md-10 my-2 py-2 py-md-0 my-md-0">
 		<button on:click={toggleModal} class="d-flex btn btn-secondary rounded-3 px-4 mb-3"
-			>Add Log</button
-		>
+			>Add Log</button>
 		<Modal bind:open id={profile.id} on:submitForm={reloadTable} />
 		<TableLog bind:reload />
+	</div>
 </div>
