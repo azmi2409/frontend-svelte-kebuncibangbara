@@ -11,8 +11,5 @@ export async function post({ request }) {
 		body: body
 	});
 
-	return {
-		status: 200,
-		headers: res.headers
-	}
+	return res
 }
