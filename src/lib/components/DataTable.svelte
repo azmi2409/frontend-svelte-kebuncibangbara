@@ -30,6 +30,17 @@
 	$: editRows = (e) => {
 		rowsPerPage = parseInt(e.target.value) || 10;
 	};
+
+	//Function to search items from array
+	function search(searchTerm, array) {
+		if (searchTerm == '') {
+			return array;
+		}
+		return array.filter((item) => {
+			return item.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+		});
+	}
+
 </script>
 
 <svelte:window on:keydown={handleKeyDown} />

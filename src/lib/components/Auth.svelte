@@ -37,7 +37,9 @@
 				body: body
 			});
 			const res = await post.json();
-			const check = await doesSessionExist();
+			if(post.status == 200){
+				$session.user.authenticated = true
+			}
 		} catch (e) {
 			console.log(e);
 		}

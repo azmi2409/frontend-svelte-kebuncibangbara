@@ -30,7 +30,7 @@
 		return;
 	}
 
-	$: loggedIn = $session.user.authenticated
+	const loggedIn = $session.user.authenticated
 
 	$: $navigating ? startLoading() : stopLoading();
 </script>
@@ -40,7 +40,7 @@
 	{#if loading}
 		<Loading />
 	{:else}
-		{#if loggedIn}
+		{#if $session.user.authenticated}
 		<slot />
 		{:else}
 		<Auth />
