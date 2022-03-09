@@ -5,8 +5,6 @@
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import { navigating } from '$app/stores';
-	import { session } from '$app/stores';
-	import Auth from '$lib/components/Auth.svelte'
 
 	let loading = false;
 
@@ -30,8 +28,6 @@
 		return;
 	}
 
-	const loggedIn = $session.user.authenticated
-
 	$: $navigating ? startLoading() : stopLoading();
 </script>
 
@@ -40,11 +36,7 @@
 	{#if loading}
 		<Loading />
 	{:else}
-		{#if $session.user.authenticated}
 		<slot />
-		{:else}
-		<Auth />
-		{/if}
 	{/if}
 </main>
 <Footer />
