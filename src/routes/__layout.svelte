@@ -5,8 +5,9 @@
 	import 'bootstrap/dist/css/bootstrap.min.css';
 	import 'bootstrap-icons/font/bootstrap-icons.css';
 	import { navigating } from '$app/stores';
+	import { onMount } from 'svelte';
 
-	let loading = false;
+	let loading = true;
 
 	const timeout = (ms) => {
 		return new Promise((resolve) => setTimeout(resolve, ms));
@@ -27,6 +28,12 @@
 		}
 		return;
 	}
+
+	onMount(
+		() => {
+		stopLoading();
+		}
+	)
 
 	$: $navigating ? startLoading() : stopLoading();
 </script>
